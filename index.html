@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="de">
+	<head>
+		<title>Erstes JS-Objekt</title>
+		<meta lang="de">
+		<meta charset="UTF-8" />
+		<meta name="description" content="testet dt-pic" />
+		<meta name="author" content="schmidt_pohl" />
+ 
+		<link href="css/main.css" type="text/css" rel="stylesheet" />
+
+	</head>
+	<body>
+		<h1>Hallo Slider</h1>
+		<div class="page">
+			<div class="print-area">
+				<div id="hierdrin" style="width: 90%;margin: 0 auto; padding:20px; border: 1px solid red;">
+				</div>
+			</div> <!-- .print-area -->
+		</div> <!-- .page -->
+		
+		<script src="script/jquery-1.11.1.js"></script>
+		<script>
+			function slider( container, ratio, proz_thumbs ) {
+				this.container = container;		// umgebendes Element, liefert die Breite
+				this.ratio = ratio;				// Seitenverhältnis der Bilddarstellung breite:höhe
+				this.proz_thumbs = proz_thumbs;	// Anteil in % der containerBreite
+				this.height_thumbs = 72;		// absolute Höhe des Sliders unter dem Bild ( portrait )
+
+				// Die Buchführung
+				this.actualOrientation = 'portrait'; // Orientierung des Viewports!!
+				this.aktIndex = 0;					 // angezeigtes Bild
+
+				// Was kann man vorberechnen?
+				this.mainpictureWidthLandscape = ''; // Breiten des Bildfensters, orientierung, proz_thumbs
+				this.mainpictureWidthPortrait = '100%'; 
+
+				// Setter - Methoden
+				this.setRatio = function(wert) {
+					this.ratio = wert;
+					this.calcRatio();
+				} // setRatio
+
+				this.setProz_thumbs = function(wert) {
+					if ( true ) {
+						this.proz_thumbs = wert;
+						this.calcThumbList();
+					}
+				} // setProz_thumbs
+
+				this.setActualOrientation = function(wert) {
+					var t = null;
+					if ( wert == 'portrait') {
+						this.actualOrientation = wert;
+						t = $('#'+this.container+' .slider-mainpicture');
+						t.css('width',this.mainpictureWidthPortrait);
+
+						t = $('#'+this.container+' .slider-thumbsarea');
+						t.css('width','100%');
+						t.css('float','none');
+
+						/* images passend machen */
+						t = $('#'+this.container+' .slider-thumbsarea img');
+						t.css('width','100%');
+						t.css('height','auto');											
+					}
+					if ( wert == 'landscape') {
+						this.actualOrientation = wert;
+						// Breite des Bildfensters reduzieren
+						
+						t = $('#'+this.container+' .slider-mainpicture');
+						t.css('width',this.mainpictureWidthLandscape);
+					
+
+						// breite des Sliders
+						var bs = this.proz_thumbs.toString()+'%';
+						t = $('#'+this.container+' .slider-thumbsarea');
+						t.css('width',bs);
+						t.css('float','right');
+
+					}
+				}
+				// Hilfsroutinen
+				this.calcWindowWidths = function() {
+					var b = 100-this.proz_thumbs;
+					var p = b.toString()+'%'
+					this.mainpictureWidthLandscape = p;
+				}
+
+				// Was zu tun ist, wenn this.proz_thumbs sich ändert
+				this.calcThumbList = function () {
+					/* portrait Darstellung */
+					var t = $('#'+this.container+' .slider-thumbsarea img');
+					var p = this.height_thumbs.toString()+'px';    // bis mir etwas besseres einfällt
+					t.css('height',p);
+					/* landscape */
+
+				};
+
+				// Was zu tun ist, wenn this.ratio sich ändert
+				this.calcRatio = function () {
+					this.calcWindowWidths();
+					/* portrait Darstellung */
+					if ( this.actualOrientation == 'portrait') {
+						var v = this.ratio.split(':');
+						var r = parseInt(v[1])/parseInt(v[0])*100;
+						var t = $('#'+this.container+' .slider-mainpicture');
+						var p = '0 0 '+r.toString()+'%'+' 0';
+						t.css('padding',p);
+					} else {   // landscape
+						// Bildbreite reduzieren
+
+					};
+				};
+
+
+				// die Bühne
+				this.startUp = function() {
+					// Bildbereich und Sliderbereich setzen
+					// portrait einfach untereinander
+					var bild = '<div class="slider-mainpicture"></div>';
+					var slider = '<div class="slider-thumbsarea"><img src="http://placehold.it/150x50" /></div><div class="clear"></div>';
+					$('#'+this.container).html(bild+slider);
+					this.calcWindowWidths();
+					this.calcRatio();
+					this.calcThumbList();
+				};
+
+			}; // end Slider
+
+
+			var x = new slider("hierdrin", "3:2", 20 );
+			x.startUp();
+			alert('weiter');
+			// x.setRatio('1:1');
+			// alert('weiter');
+			x.setActualOrientation('landscape');
+			alert('weiter');
+			x.setActualOrientation('portrait');
+		</script>
+	</body>
+</html>

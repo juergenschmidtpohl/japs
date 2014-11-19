@@ -1,0 +1,24 @@
+Projekt JAPS
+
+Just Another Picture Slider
+
+Vorgaben:
+	Umgebendes Element.
+		Der slider hat immer die Breite des umgebenden Elements
+	Ratio
+		Seitenverhältnis der Bilddarstellung hoehe:breite ( z.B. 2:3 )
+		Gilt für alle Bilder incl. thumbnails
+	Breite der thumbLeiste in % des umgebenden Elements
+		Wird bei der portrait - Ansicht druntergepackt,
+		bei der landscape - ansicht von der Gesamtbreite abgezogen
+
+Es gibt genau eine Zeile/Spalte in der thumbleiste.
+
+Paradigmen:
+	Möglich wenig inline-styles.
+	Eventuell Spezialfälle von ratio und thumbanteil mit Klassen abbilden.
+
+
+Noch Offen:
+	Bildquellen
+	Sonderfunktionen

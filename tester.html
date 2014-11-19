@@ -1,0 +1,39 @@
+
+<!DOCTYPE html>
+<html lang="de">
+    <head>
+        <title></title>
+           <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+        <meta charset="UTF-8" />
+        <link type="text/css" rel="stylesheet" href="css/main.css">
+    </head>
+
+    <body>
+        <div class="page" >
+            <div class="print-area">
+                <div id="hierdrin" style="width: 90%;margin: 0 auto; padding:20px; border: 1px solid red;"></div>
+            </div> <!-- .print-area -->
+        </div> <!-- .page -->
+
+        <!-- jQuery -->
+        <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+        <script src="script/japs.js"></script>
+
+
+        <script>
+
+            var x = new slider("hierdrin", "1:1", 20 );
+            x.startUp();
+
+            debugger;
+
+            x.calcRatio();      // err
+//            alert(x.container); // err undefined OK
+            alert('weiter');
+            x.setRatio('16:9');
+
+            alert('weiter');
+            x.setActualOrientation('landscape');
+        </script>
+    </body>
+</html>
